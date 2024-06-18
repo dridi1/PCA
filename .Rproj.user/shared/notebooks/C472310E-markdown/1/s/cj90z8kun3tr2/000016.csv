@@ -1,0 +1,6 @@
+"0","data$sexe<-factor(data$sexe,levels=c(""Male"",""Female""))"
+"0","freq=table((data$sexe))"
+"0","perc<- round(freq/sum(freq)*100)"
+"0","labls1 <- paste(c(""Male"",""Female""),perc)"
+"0","labls1 <- paste(labls1,""%"",sep="""")"
+"0","pie(freq,labels = labls1,col=c(""blue"", ""pink""),main=""Distribution of Gender"")"

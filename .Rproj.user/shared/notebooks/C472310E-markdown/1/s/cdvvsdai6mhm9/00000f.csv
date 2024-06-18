@@ -1,0 +1,5 @@
+"0","fviz_mca_biplot(res.mca,"
+"0","col.ind=""cos2"","
+"0","invisible =""var"",repel = TRUE,"
+"0","ggtheme = theme_minimal ())"
+"0",""

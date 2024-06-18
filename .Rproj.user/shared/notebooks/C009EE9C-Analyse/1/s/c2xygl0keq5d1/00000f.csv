@@ -1,0 +1,8 @@
+"0","PAY_AMT_list<-c(""PAY_AMT1"",""PAY_AMT2"",""PAY_AMT3"",""PAY_AMT4"",""PAY_AMT5"",""PAY_AMT6"")"
+"0",""
+"0","histogram_list <- lapply(PAY_AMT_list, function(col_name) {"
+"0","    plot_ly(UCI_Credit_Card, x = ~get(col_name), type = ""histogram"",nbinsx = 70 ,name = col_name) %>%"
+"0","      layout(title =""Histograms of Pay Amounts"")"
+"0","  })"
+"0","  combined_plot <- subplot(histogram_list, nrows = 3)"
+"0","  combined_plot"

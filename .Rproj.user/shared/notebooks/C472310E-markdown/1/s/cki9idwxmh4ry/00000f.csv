@@ -1,0 +1,8 @@
+"0","library(readxl) #used for importing exel data  "
+"0","library(FactoMineR) #used for applying PCA, MCA & classification "
+"0","library(factoextra) #used for applying PCA, MCA & classification"
+"0","library(ggplot2) # visualization "
+"0","library(dplyr) # data manipulation "
+"0","library(corrplot) # plotting the corrolation"
+"0","library(questionr)"
+"0","library(flextable) # print pretty tables "

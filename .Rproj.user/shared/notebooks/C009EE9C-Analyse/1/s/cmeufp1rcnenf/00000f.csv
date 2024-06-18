@@ -1,0 +1,4 @@
+"0","ggplot(data = UCI_Credit_Card, aes(sample = LIMIT_BAL)) +"
+"0","  stat_qq() +"
+"0","  stat_qq_line(col = ""red"") +"
+"0","  labs(title = ""Q-Q Plot for LIMIT_BAL"")"

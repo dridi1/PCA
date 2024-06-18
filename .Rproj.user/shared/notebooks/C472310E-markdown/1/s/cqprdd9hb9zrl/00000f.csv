@@ -1,0 +1,6 @@
+"0","data$education<-factor(data$education,levels=c(""University education"",""Primary education""))"
+"0","freq=table((data$education))"
+"0","perc <- round(freq/sum(freq)*100)"
+"0","labls1 <- paste(c(""University education"",""Primary education""),perc)"
+"0","labls1 <- paste(labls1,""%"",sep="""")"
+"0","pie(freq,labels = labls1, col=rainbow(length(labls1)),main=""Distribution of Education"")"

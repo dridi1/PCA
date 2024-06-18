@@ -1,0 +1,10 @@
+library(FactoMineR)
+library(ggplot2)
+data("mortality")
+summary(mortality)
+dim(mortality)
+mortality<-t(mortality)
+mortality<-data.frame(mortality)
+ggplot(mortality,aes(Suicides))+geom_line()
+mortality[1:18,]
+data.frame()

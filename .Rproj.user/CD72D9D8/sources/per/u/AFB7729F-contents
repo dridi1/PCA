@@ -1,0 +1,16 @@
+pie_data <- data.frame(
+  category = c("Category A", "Category B", "Category C", "Category D"),
+  value = c(20, 30, 15, 35)
+)
+
+# Create pie chart
+pie_chart <- ggplot(pie_data, aes(x = "", y = value, fill = category)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y", start = 0) +
+  theme_void() +
+  theme(legend.position = "right") +
+  scale_fill_manual(values = c("Category A" = "blue", "Category B" = "green", "Category C" = "orange", "Category D" = "red")) + 
+  labs(title = "Pie Chart", fill = "Category")
+
+# Display pie chart
+print(pie_chart)

@@ -1,0 +1,7 @@
+"0","ggplotly("
+"0","ggplot(UCI_Credit_Card, aes(x = PAY_4, fill = PAY_4)) +"
+"0","  geom_bar() +"
+"0","  labs(title = ""Bar Plot by PAY_4"", y = ""Frequency"") +"
+"0","  theme_classic() +"
+"0","  scale_x_discrete(labels = labels_PAY)+theme(axis.text.x = element_text(angle = 45, hjust = 1)"
+"0","))"

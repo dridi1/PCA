@@ -1,0 +1,6 @@
+"0","data$Country_of_choice<-factor(data$Country_of_choice,levels=c(""Germany"",""Other"",""Italy"",""Canada"",""France"",""U_S_A""))"
+"0","freq=table((data$Country_of_choice))"
+"0","perc <- round(freq/sum(freq)*100)"
+"0","labls1 <- paste(c(""Germany"",""Other"",""Italy"",""Canada"",""France"",""U_S_A""),perc)"
+"0","labls1 <- paste(labls1,""%"",sep="""")"
+"0","pie(freq,labels = labls1, col=rainbow(length(labls1)),main=""Distribution of country of choice"")"

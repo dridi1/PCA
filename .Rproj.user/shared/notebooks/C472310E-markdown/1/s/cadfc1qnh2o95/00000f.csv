@@ -1,0 +1,6 @@
+"0","data$sexe<-factor(data$Age,levels=c(""Between 18 and 25"",""Over 40""))"
+"0","freq=table((data$Age))"
+"0","perc <- round(freq/sum(freq)*100)"
+"0","labls1 <- paste(c(""Between 18 and 25,"",""Over 40,""),perc)"
+"0","labls1 <- paste(labls1,""%"",sep="""")"
+"0","pie(freq,labels = labls1, col=rainbow(length(labls1)),main=""Distribution of Age"")"

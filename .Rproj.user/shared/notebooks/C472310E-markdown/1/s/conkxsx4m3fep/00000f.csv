@@ -1,0 +1,6 @@
+"0","d<-data.frame(res.mca$eig)"
+"0","DIM <- paste(""Dim."", 1:6, sep = """")"
+"0","d <- cbind(DIM,d)"
+"0","ft <- flextable(d)"
+"0","ft <- autofit(ft)"
+"0","theme_zebra(ft)"

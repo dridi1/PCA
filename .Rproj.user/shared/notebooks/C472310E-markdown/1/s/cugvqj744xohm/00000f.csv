@@ -1,0 +1,3 @@
+"0","fviz_pca_var(res.pca2, axes=c(1,2), col.var=""cos2"") +"
+"0","scale_color_gradient2(low=""white"", mid=""blue"","
+"0","                      high=""red"", midpoint=0.6)"

@@ -1,0 +1,4 @@
+"0","fviz_pca_ind(res.pca2,geom =""text"",col.ind=""cos2"")+"
+"0","scale_color_gradient2(low=""blue"", mid=""white"","
+"0","high=""red"", midpoint=0.5)"
+"0",""

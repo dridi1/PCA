@@ -1,0 +1,142 @@
+"0","library(readr) # Package for loading the csv file. "
+"0","library(dplyr) # Package for manipulate DATA ."
+"0","library(ggplot2) # Package for visualize DATA ."
+"0","library(plotly) # Package for visualizing DATA in a interactive way ."
+"2","Registered S3 method overwritten by 'data.table':
+  method           from
+  print.data.table     
+"
+"2","
+Attachement du package : ‘plotly’
+
+"
+"2","L'objet suivant est masqué depuis ‘package:ggplot2’:
+
+    last_plot
+
+"
+"2","L'objet suivant est masqué depuis ‘package:stats’:
+
+    filter
+
+"
+"2","L'objet suivant est masqué depuis ‘package:graphics’:
+
+    layout
+
+"
+"0","library(corrplot)  # Package for visualizing correlation matrices ."
+"0","library(DescTools) # Package for descriptive statistics and visualization tools ."
+"0","library(ltm)"
+"2","Le chargement a nécessité le package : MASS
+"
+"2","
+Attachement du package : ‘MASS’
+
+"
+"2","L'objet suivant est masqué depuis ‘package:plotly’:
+
+    select
+
+"
+"2","L'objet suivant est masqué depuis ‘package:dplyr’:
+
+    select
+
+"
+"2","Le chargement a nécessité le package : msm
+"
+"2","Le chargement a nécessité le package : polycor
+"
+"0","library(vcd)"
+"2","Le chargement a nécessité le package : grid
+"
+"0","library(knitr)"
+"0","library(kableExtra)"
+"2","
+Attachement du package : ‘kableExtra’
+
+"
+"2","L'objet suivant est masqué depuis ‘package:dplyr’:
+
+    group_rows
+
+"
+"0","library(infotheo)"
+"0","library(caret)"
+"2","Le chargement a nécessité le package : lattice
+"
+"2","
+Attachement du package : ‘caret’
+
+"
+"2","Les objets suivants sont masqués depuis ‘package:DescTools’:
+
+    MAE, RMSE
+
+"
+"0","library(caTools)"
+"0","library(randomForest)"
+"2","randomForest 4.7-1.1
+"
+"2","Type rfNews() to see new features/changes/bug fixes.
+"
+"2","
+Attachement du package : ‘randomForest’
+
+"
+"2","L'objet suivant est masqué depuis ‘package:dplyr’:
+
+    combine
+
+"
+"2","L'objet suivant est masqué depuis ‘package:ggplot2’:
+
+    margin
+
+"
+"0","library(scorecard)"
+"2","
+Attachement du package : ‘scorecard’
+
+"
+"2","L'objet suivant est masqué depuis ‘package:questionr’:
+
+    describe
+
+"
+"0","library(officer)"
+"2","
+Attachement du package : ‘officer’
+
+"
+"2","L'objet suivant est masqué depuis ‘package:questionr’:
+
+    prop_table
+
+"
+"2","L'objet suivant est masqué depuis ‘package:readxl’:
+
+    read_xlsx
+
+"
+"0","path_data <- ""D:\\project_PFA Default of Credit Card Clients_Dataset_SAMER\\Initial_Dataset\\UCI_Credit_Card.csv"""
+"0","UCI_Credit_Card <- data.frame(read.csv(path_data))"
+"0",""
+"0","UCI_Credit_Card<-subset(UCI_Credit_Card,select = -ID) "
+"0",""
+"0","colnames(UCI_Credit_Card)[colnames(UCI_Credit_Card) == ""PAY_0""] <- ""PAY_1"""
+"0","colnames(UCI_Credit_Card)[colnames(UCI_Credit_Card) == ""default.payment.next.month""] <- ""Payment_Status"""
+"0",""
+"0","col_names_Quanti<-c(""LIMIT_BAL"",""AGE"","
+"0","                      ""BILL_AMT1"",""BILL_AMT2"",""BILL_AMT3"",""BILL_AMT4"",""BILL_AMT5"",""BILL_AMT6"","
+"0","                      ""PAY_AMT1"",""PAY_AMT2"",""PAY_AMT3"",""PAY_AMT4"",""PAY_AMT5"",""PAY_AMT6"")"
+"0","col_names_Cato<-c(""SEX"",""EDUCATION"",""MARRIAGE"","
+"0","                     ""PAY_1"",""PAY_2"",""PAY_3"",""PAY_4"",""PAY_5"",""PAY_6"","
+"0","                     ""Payment_Status"")"
+"0","all_col_names<-c(col_names_Quanti,col_names_Cato)"
+"0",""
+"0","for (nc in col_names_Cato) {"
+"0","  UCI_Credit_Card[[nc]]<-as.factor(UCI_Credit_Card[[nc]])      "
+"0","}"
+"0",""

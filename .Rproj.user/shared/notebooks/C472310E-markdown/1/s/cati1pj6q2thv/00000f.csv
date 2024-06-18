@@ -1,0 +1,2 @@
+"0","X2=as.matrix(data[,22:31])"
+"0","res.pca2 <- PCA (X2,graph=F)"

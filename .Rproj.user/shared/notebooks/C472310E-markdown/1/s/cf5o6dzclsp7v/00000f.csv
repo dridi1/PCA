@@ -1,0 +1,7 @@
+"0","s<-res.pca2$var$coord"
+"0","s<-data.frame(s)"
+"0","Question <- paste(""Q."", 1:10, sep = """")"
+"0","s <- cbind(Question,s)"
+"0","ft <- qflextable(s)"
+"0","ft <- autofit(ft)"
+"0","theme_zebra(ft)"

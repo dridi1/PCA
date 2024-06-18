@@ -1,0 +1,262 @@
+---
+title: "Exploring Tunisian Emigration Patterns"
+author: "Dridi Slim"
+date: "`r Sys.Date()`"
+output:
+  pdf_document:
+    toc: true
+    latex_engine: xelatex
+---
+
+\newpage
+
+# Introduction:
+
+![](Flag_of_Tunisia.svg.png){width="88" height="58"}
+
+-   Tunisia, a North African country with a rich history and diverse cultural heritage, has experienced significant emigration over the past few decades.
+
+-   In this project, we aim to study the various opinions on Tunisian emigration.
+
+-   The survey: The survey was created using Google Forms and distributed to respondents mainly through Gmail. The data was then collected in an Excel file and subsequently processed using the R programming language.
+
+    [survey link](https://forms.gle/FpuRTBzGJmXTePej9)
+
+# Setting up the environment:
+
+## Importing packages:
+
+```{r message=FALSE, warning=FALSE}
+library(readxl) #used for importing exel data  
+library(FactoMineR) #used for applying PCA, MCA & classification 
+library(factoextra) #used for applying PCA, MCA & classification
+library(ggplot2) # visualization 
+library(dplyr) # data manipulation 
+library(corrplot) # plotting the corrolation
+library(questionr)
+library(flextable) # print pretty tables 
+```
+
+## Importing Data:
+
+```{r}
+data <- read_excel("D://Analyse//PCA//final_data.xlsx")
+data <- data.frame(data)
+```
+
+# data overview:
+
+```{r}
+paste("In our data, We have",ncol(data),"variable And",nrow(data),"Observation")
+```
+
+\newpage
+
+# Descriptive statistics:
+
+## Sexe Pie chart:
+
+```{r}
+data$sexe<-factor(data$sexe,levels=c("Male","Female"))
+freq=table((data$sexe))
+perc<- round(freq/sum(freq)*100)
+labls1 <- paste(c("Male","Female"),perc)
+labls1 <- paste(labls1,"%",sep="")
+pie(freq,labels = labls1,col=c("blue", "pink"),main="Distribution of Gender")
+```
+
+> The chart effectively visualizes the nearly equal distribution between males and females, highlighting gender eaqual distribution within the dataset.
+
+## Age Pie chart:
+
+```{r}
+data$sexe<-factor(data$Age,levels=c("Between 18 and 25","Over 40"))
+freq=table((data$Age))
+perc <- round(freq/sum(freq)*100)
+labls1 <- paste(c("Between 18 and 25,","Over 40,"),perc)
+labls1 <- paste(labls1,"%",sep="")
+pie(freq,labels = labls1, col=rainbow(length(labls1)),main="Distribution of Age")
+```
+
+> The chart highlights a notable disparity in age distribution, with a substantial majority of individuals falling within the 18 to 25 age range.
+
+## Education Pie chart:
+
+```{r}
+data$education<-factor(data$education,levels=c("University education","Primary education"))
+freq=table((data$education))
+perc <- round(freq/sum(freq)*100)
+labls1 <- paste(c("University education","Primary education"),perc)
+labls1 <- paste(labls1,"%",sep="")
+pie(freq,labels = labls1, col=rainbow(length(labls1)),main="Distribution of Education")
+```
+
+> This char reveals a significant educational trend.
+
+## country of choice Pie chart:
+
+```{r}
+data$Country_of_choice<-factor(data$Country_of_choice,levels=c("Germany","Other","Italy","Canada","France","U_S_A"))
+freq=table((data$Country_of_choice))
+perc <- round(freq/sum(freq)*100)
+labls1 <- paste(c("Germany","Other","Italy","Canada","France","U_S_A"),perc)
+labls1 <- paste(labls1,"%",sep="")
+pie(freq,labels = labls1, col=rainbow(length(labls1)),main="Distribution of country of choice")
+```
+
+# Principal Component Analysis (PCA):
+
+## Perform Principal Component Analysis:
+
+```{r}
+X2=as.matrix(data[,22:31])
+res.pca2 <- PCA (X2,graph=F)
+```
+
+## Calculating eigenvalues from PCA results:
+
+```{r}
+#get the eignvalue
+eig_val2 <- res.pca2$eig
+
+#transform to a better table
+eig_val2<-data.frame(eig_val2)
+DIM <- paste("Dim.", 1:10, sep = "")
+eig_val2 <- cbind(DIM,eig_val2)
+ft <- flextable(eig_val2)
+ft <- autofit(ft)
+theme_zebra(ft)
+```
+
+## Extracting variables from PCA results:
+
+```{r}
+var1 <- get_pca_var(res.pca2)
+var1
+```
+
+## Correlation plot using cos²:
+
+```{r}
+corrplot(var1$cos2,tl.cex = 0.8, is.corr=F)
+```
+
+> The higher the cos2, the better the variable is represented. Our variables demonstrate high correlation with the first dimension.
+
+## Coordinates of variables:
+
+```{r}
+s<-res.pca2$var$coord
+s<-data.frame(s)
+Question <- paste("Q.", 1:10, sep = "")
+s <- cbind(Question,s)
+ft <- qflextable(s)
+ft <- autofit(ft)
+theme_zebra(ft)
+```
+
+```{r}
+fviz_eig(res.pca2, addlabels = TRUE, ylim = c(0, 50))
+```
+
+> According to the Elbow criterion, we observe a bend (elbow) followed by a decrease. We select the axes before the elbow. Based on the scree plot presented above, the number of axes to retain is 3.
+
+-   Kaiser Criterion: We have 2 eigenvalues greater than 1. \newline
+-   Elbow Criterion: The elbow is at the level of the third axis. \newline
+-   Cumulative Inertia Criterion: The first two axes have a cumulative inertia rate of 64.36%.
+\newline **Decision**: We retain the first two axes.
+
+## Visualize variables plot for axes 1 and 2:
+
+```{r}
+fviz_pca_var(res.pca2, axes=c(1,2), col.var="cos2") +
+scale_color_gradient2(low="white", mid="blue",
+                      high="red", midpoint=0.6)
+```
+
+-   The first two dimensions contain 64.36% of the total inertia. \newline
+-   The further from the origin indicate better presentation like environmental factors. \newline
+-   Variables : personal safety, investment in education, access to justice, legal rights and justice, and healthcare services are closely clustered, indicating a strong correlation among them. \newline
+-   The same for variables : better quality of life ,public transportation ,environmental pollution and environmental factors. 
+
+## PCA Plot of Individuals with Cos2 Values:
+
+```{r}
+fviz_pca_ind(res.pca2,geom ="text",col.ind="cos2")+
+scale_color_gradient2(low="blue", mid="white",
+high="red", midpoint=0.5)
+
+```
+
+```{r}
+plot.PCA(res.pca2, axes=c(1, 2), choix="ind", cex=0.7)
+
+```
+
+# Multiple Correspondence Analysis (MCA):
+
+## Performing Multiple Correspondence Analysis:
+
+```{r}
+res.mca <- MCA (data[,3:8], graph = FALSE)
+```
+
+## Calculating eigenvalues from MCA results:
+
+```{r}
+d<-data.frame(res.mca$eig)
+DIM <- paste("Dim.", 1:6, sep = "")
+d <- cbind(DIM,d)
+ft <- flextable(d)
+ft <- autofit(ft)
+theme_zebra(ft)
+```
+
+## Scree Plot for Multiple Correspondence Analysis :
+
+```{r}
+fviz_screeplot(res.mca)
+```
+
+```{r}
+fviz_mca_var(res.mca,repel = TRUE,ggtheme = theme_minimal ())
+```
+
+-   It's just a matter of identifying the clusters of modalities that are close on the map. \newline 
+-   We have a first group of modalities on the left, consisting of modalities : migrated_to_another_country_before_no , satisfation_no , considered_emigration_from_tunisia_yes . \newline -\> whose interpretation is as follows: individuals who want to emigrate from tunisia \newline
+-   Second groupe: difficulties_in_obtaining_necessary_documentation_for_emigration_no ,actively_pursuing_emigration_plans_no ,considered_emigration_from_tunisia_no ,satisfaction_yes . \newline -\> whose interpretation is as follows: individuals who doesn't want to emigrate from tunisia.
+
+```{r}
+fviz_mca_biplot(res.mca,
+col.ind="cos2",
+invisible ="var",repel = TRUE,
+ggtheme = theme_minimal ())
+
+```
+
+# Classification:
+
+The idea of classifying various elements of a dataset into multiple categories is to group the data based on their similarity. Since the data share common characteristics, it is easier to predict their behavior. 
+## Performing classification:
+
+```{r}
+res.pca <- PCA(X2, ncp = 4, graph = FALSE)
+res.hcpc <- HCPC(res.pca,nb.clust = 4, graph = FALSE)
+HCPC (res.pca, nb.clust = 4, graph = TRUE)
+```
+```{r}
+res.hcpc$desc.var
+```
+
+```{r}
+fviz_cluster(res.hcpc,
+repel = TRUE,
+show.clust.cent = TRUE,
+palette = "jco",
+ggtheme = theme_minimal(),
+main = "Factor map"
+)
+
+```
+
+Observed Classes: \newline - Cluster_1 [18-31-35]\newline - Cluster_2 [9-8-26-30-19-27-28-10-21-11-25-14-20-32-22-27]\newline - Cluster_3 [23-29-1-15-12-2-24-13]\newline - Cluster_4 [1-5-3-6-34-4-33-17]\newline - Each Cluster present a groupe of individuals.\newline - Each cluster seems to have distinct characteristics based on the quantitative variables.\newline - Cluster 1 has lower scores in categories like environmental pollution, healthcare services, and access to justice compared to other clusters. \newline - Cluster 2 has a significantly higher mean in healthcare services compared to the overall mean.\newline - Cluster 3 shows higher scores in investment in education and personal safety compared to other clusters.\newline - Cluster 4 exhibits higher scores in environmental factors and public transportation. \newline -  "Public_transportation" seems to be strongly associated with Clusters 1 and 4, as indicated by their high Eta2 values and low P-values. \newline - Similarly, "Environmental_factors" appear to be linked with Clusters 1, 3, and 4.

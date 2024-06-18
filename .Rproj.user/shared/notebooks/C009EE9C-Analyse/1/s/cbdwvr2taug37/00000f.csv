@@ -1,0 +1,8 @@
+"0",""
+"0","BILL_AMT_LIST<-list(""BILL_AMT1"",""BILL_AMT2"",""BILL_AMT3"",""BILL_AMT4"",""BILL_AMT5"",""BILL_AMT6"")"
+"0","histogram_list <- lapply(BILL_AMT_LIST, function(col_name) {"
+"0","    plot_ly(UCI_Credit_Card, x = ~get(col_name), type = ""histogram"", histnorm = ""probability density"",nbinsx = 80,name = col_name) %>%"
+"0","      layout(title = ""Histograms of Bill Amounts"")"
+"0","  })"
+"0","  combined_plot <- subplot(histogram_list, nrows = 3)"
+"0","  combined_plot"

@@ -1,0 +1,2 @@
+"0","data <- read_excel(""D://Analyse//PCA//final_data.xlsx"")"
+"0","data <- data.frame(data)"
